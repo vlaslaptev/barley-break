@@ -9,10 +9,14 @@ body {
     background: #ffffff;
     padding: 0;
     font: 30px 'Open Sans', Helvetica, Arial, sans-serif;
-    overflow-y: hidden;
 }
 
 button:focus {outline:0;}
+
+a {
+    text-decoration: none;
+    color: #009688;
+}
 
 .barley-break {
     border-collapse: collapse;
@@ -73,4 +77,9 @@ button {
     border: none;
     background-color: #ffffff;
     float: left;
+}
+
+.p-info {
+    color: #009688;
+    font: 14px 'Open Sans', Helvetica, Arial, sans-serif;
 }
