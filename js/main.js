@@ -1,6 +1,7 @@
 var $_td = $("td");
 var steps = 0;
 var game = false;
+var baseState = $(".barley-break").html();
 
 var cells = [1, 2, 3, 6, 7, 10, 11, 14, 15, 16];
 var allcells = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
@@ -41,7 +42,7 @@ $_td.on("click", function () {
     var $_this = $(this);
     var this_id = $_this.attr('id');
 
-    if (sideBySide(this_id)) {
+    if (sideBySide(this_id) && !checkVictory()) {
         if (!game) {
             pause_play_clock();
             game = true;
@@ -62,6 +63,8 @@ $_td.on("click", function () {
 });
 
 $(".restart").click(function () {
+    $(".barley-break").html(baseState);
+    $_td = $("td");
     randomFill();
     newGame();
 });
@@ -86,7 +89,7 @@ $(document).keydown(function (e) {
 });
 
 function keyArrowDown(keyCode) {
-    if (keyCode > 36 && keyCode < 41) {
+    if (keyCode > 36 && keyCode < 41 && !checkVictory()) {
         if (!game) {
             pause_play_clock();
             game = true;
