@@ -1,5 +1,4 @@
-var fill = [], $_td = $("td");
-var count = 15;
+var $_td = $("td");
 var steps = 0;
 var game = false;
 
@@ -32,17 +31,19 @@ function addClassEmptyCell() {
 }
 
 function randomFill() {
-    for (var i = 0; i < count; i++) {
-        var random = function (min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }(1, count);
-        i === 0 ? fill.push(random) : fill.indexOf(random) === -1 ? fill.push(random) : i--;
-        $_td.eq(i).text(fill[i]);
+    for (var i = 0; i < 500; i++) {
+        var arrowCode = Math.random() * (41 - 37) + 37;
+        keyArrowDown(parseInt(arrowCode));
     }
 }
 
-randomFill();
-addClassEmptyCell();
+function newGame() {
+    $(".victory").text("");
+    clearСlock();
+    steps = 0;
+    $(".step-score").text(steps);
+    game = false;
+}
 
 $_td.on("click", function () {
     var $_this = $(this);
@@ -69,16 +70,8 @@ $_td.on("click", function () {
 });
 
 $(".restart").click(function () {
-    $(".victory").text("");
-    fill = [];
-    $("#16").text("");
-    $_td.removeClass("empty");
     randomFill();
-    addClassEmptyCell();
-    steps = 0;
-    $(".step-score").text(steps);
-    game = false;
-    clearСlock();
+    newGame();
 });
 
 function checkVictory() {
@@ -97,13 +90,17 @@ function checkVictory() {
 }
 
 $(document).keydown(function (e) {
-    if (e.keyCode > 36 && e.keyCode < 41) {
+    keyArrowDown(e.keyCode);
+});
+
+function keyArrowDown(keyCode) {
+    if (keyCode > 36 && keyCode < 41) {
         if (!game) {
             pause_play_clock();
             game = true;
         }
         var currentEmpty = $(".empty");
-        var $_cell = $("#" + getMovedCellId(currentEmpty, e.keyCode));
+        var $_cell = $("#" + getMovedCellId(currentEmpty, keyCode));
         if ($_cell.attr("id")) {
             incrementStep();
             currentEmpty.text($_cell.text());
@@ -119,7 +116,7 @@ $(document).keydown(function (e) {
             }
         }
     }
-});
+}
 
 function getMovedCellId(emptyCell, kode) {
     var idEmpty = emptyCell.attr('id');
@@ -132,7 +129,7 @@ function getMovedCellId(emptyCell, kode) {
 
     if (kode == 38) { //up
         idEmpty = parseInt(idEmpty) + 4;
-        if(!$.inArray(idEmpty, allcells)) {
+        if (!$.inArray(idEmpty, allcells)) {
             idEmpty = -1
         }
     }
@@ -146,9 +143,12 @@ function getMovedCellId(emptyCell, kode) {
     }
     if (kode == 40) { //down
         idEmpty = parseInt(idEmpty) - 4;
-        if($.inArray(parseInt(idEmpty), allcells) == -1) {
+        if ($.inArray(parseInt(idEmpty), allcells) == -1) {
             idEmpty = -1
         }
     }
     return idEmpty;
 }
+
+randomFill();
+newGame();
