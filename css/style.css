@@ -11,7 +11,9 @@ body {
     font: 30px 'Open Sans', Helvetica, Arial, sans-serif;
 }
 
-button:focus {outline:0;}
+button:focus {
+    outline: 0;
+}
 
 a {
     text-decoration: none;

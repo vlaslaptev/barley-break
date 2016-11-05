@@ -22,14 +22,6 @@ function sideBySide(cellId) {
     }
 }
 
-function addClassEmptyCell() {
-    $_td.addClass(function () {
-        if ($(this).text() === "") {
-            return "empty";
-        }
-    });
-}
-
 function randomFill() {
     for (var i = 0; i < 500; i++) {
         var arrowCode = Math.random() * (41 - 37) + 37;
